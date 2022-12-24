@@ -6,36 +6,63 @@ public class PathGenerator : MonoBehaviour
 {
     [SerializeField]private PlayerMovement player;
     [SerializeField]private GameObject floor;
-    [SerializeField]private float minDistance = 10f;
+    [SerializeField]private LayerMask floorMask;
+    [SerializeField]private float spawnDistance = 10f;
 
     [SerializeField]private GameObject firstFloor;
     [SerializeField]private float obstacleSpawnWidth = 2f;
     [SerializeField]private Obstacle obstaclePrefab;
     [SerializeField]private float obstacleSpawnLength = 20f;
-
     [Range(1,3)]
     [SerializeField]private int maxObstaclesPerFloor = 3;
-    private Transform _previousFloor;
+    [Min(0f)]
+    [SerializeField]private float backwardDistance = 25f;
+    
+    private List<Transform> _floors;
 
+    private void Awake() {
+        _floors = new List<Transform>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        _previousFloor = firstFloor.transform;
+        
+        Transform currentFloor = firstFloor.transform;
+        _floors.Add(currentFloor);
+
+        for(int i = 2; i <= 3; i++)
+        {
+            Transform endPoint = currentFloor.Find("End Point");
+            Vector3 spawnPosition = endPoint.position;
+            GameObject generatedFloor = Instantiate(floor,spawnPosition,Quaternion.identity);
+            currentFloor = generatedFloor.transform;
+            _floors.Add(currentFloor);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Transform previousFloorStartPoint = _previousFloor.Find("Start Point");
-        float distance = player.transform.position.z - previousFloorStartPoint.position.z;
-        if(distance >= minDistance)
+        Transform secondFloor = _floors[1];
+        Transform startPoint = secondFloor.Find("Start Point");
+        float offset = player.transform.position.z - startPoint.position.z;
+        if(offset >= spawnDistance)
         {
-            Transform endPoint = _previousFloor.Find("End Point");
-            Vector3 spawnPosition = endPoint.position;
+            player.transform.position -= Vector3.forward * backwardDistance;
+            Transform initialFloor = _floors[0];
+            _floors.RemoveAt(0);
+            Destroy(initialFloor.gameObject);
+            
+            Transform lastFloor = _floors[_floors.Count-1];
+            Debug.Log("Last Floor name : " + lastFloor.name);
+            Transform lastFloorEndPoint = lastFloor.Find("End Point");
+            GameObject generatedFloor = Instantiate(floor,lastFloorEndPoint.position,Quaternion.identity);
+            _floors.Add(generatedFloor.transform);
 
-            GameObject generatedFloor = Instantiate(floor,spawnPosition,Quaternion.identity);
-            GenerateObstacles(generatedFloor.transform.Find("End Point"));
-            _previousFloor = generatedFloor.transform;
+            foreach(Transform floor in _floors)
+            {
+                floor.position -= Vector3.forward * backwardDistance;
+            }
         }
     }
 
