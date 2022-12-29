@@ -10,7 +10,7 @@ public class Obstacle : MonoBehaviour
         if(player != null)
         {
             player.gameObject.SetActive(false);
-            GameObject.FindGameObjectWithTag("GameOver").SetActive(true);
+            GameManager.Instance?.OnGameOver();
             Debug.Log("GAME OVER!!");
         }    
     }
