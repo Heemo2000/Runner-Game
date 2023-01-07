@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]private LayerMask groundMask;
     [SerializeField]private float moveSpeed = 10f;
+    [SerializeField]private float gravity = 9.8f;
+
+    [SerializeField]private Animator playerAnimator;
     private Rigidbody _playerRB;
     private bool _isSliding = false;
     private void Awake() {
@@ -35,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Jump Pressed");
             Jump();
         }
+        bool isGrounded = Physics.CheckSphere(groundCheck.position,groundCheckRadius,groundMask.value);
+        _playerRB.AddForce(Vector3.down * gravity);
         if(horizontalInput != 0)
         {
             bool isWallAtSide = Physics.Raycast(transform.position,Vector3.right * horizontalInput,slideDistance);
@@ -78,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
         if(isGrounded)
         {
             Debug.Log("Jumping");
+            playerAnimator.SetTrigger("Jump");
             _playerRB.AddForce(Vector3.up * jumpForce * jumpMultiplier);
         }
                 
