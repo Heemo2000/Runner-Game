@@ -6,6 +6,7 @@ public class PathGenerator : MonoBehaviour
 {
     [SerializeField]private PlayerMovement player;
     [SerializeField]private GameObject floor;
+    [SerializeField]private int floorsGenerationCount = 5;
     [SerializeField]private LayerMask floorMask;
     [SerializeField]private float spawnDistance = 10f;
 
@@ -64,21 +65,24 @@ public class PathGenerator : MonoBehaviour
         if(offset >= spawnDistance)
         {
             
-            Transform lastFloor = _floors[_floors.Count - 1];
-            Transform lastFloorEndPoint = lastFloor.Find("End Point");
+            for(int i = 1; i <= floorsGenerationCount; i++)
+            {
+                Transform lastFloor = _floors[_floors.Count - 1];
+                Transform lastFloorEndPoint = lastFloor.Find("End Point");
+                
+                GameObject generatedFloor = Instantiate(floor,lastFloorEndPoint.position,Quaternion.identity);
+                _floors.Add(generatedFloor.transform);
             
-            GameObject generatedFloor = Instantiate(floor,lastFloorEndPoint.position,Quaternion.identity);
-            _floors.Add(generatedFloor.transform);
-        
-            Transform generatedFloorEndPoint = generatedFloor.transform.Find("End Point");
-            if(generateObstacles)
-            {
-                GenerateObstacles(generatedFloor.transform,generatedFloorEndPoint);
-            }
+                Transform generatedFloorEndPoint = generatedFloor.transform.Find("End Point");
+                if(generateObstacles)
+                {
+                    GenerateObstacles(generatedFloor.transform,generatedFloorEndPoint);
+                }
 
-            if(generateCoins)
-            {
-                GenerateCoins(generatedFloor.transform,generatedFloorEndPoint);
+                if(generateCoins)
+                {
+                    GenerateCoins(generatedFloor.transform,generatedFloorEndPoint);
+                }
             }
             
             SetToOrigin();
