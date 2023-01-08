@@ -850,7 +850,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1210488378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2, y: 0.23000002, z: -7.42}
+  m_LocalPosition: {x: -5.2, y: -0.41000032, z: -7.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -955,6 +955,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1392391717}
   floor: {fileID: 6683002513540440972, guid: 32ea4353b9f3f7d42847bcf9101d29fa, type: 3}
+  floorsGenerationCount: 5
   floorMask:
     serializedVersion: 2
     m_Bits: 8
@@ -967,7 +968,7 @@ MonoBehaviour:
   obstaclePrefab: {fileID: 3351144905765559403, guid: a1c75b557637a0440800c84e360b99a5, type: 3}
   obstacleSpawnLength: 30
   maxObstaclesPerFloor: 3
-  generateObstacles: 1
+  generateObstacles: 0
   backwardDistance: 50
   coinPrefab: {fileID: 5005043535151357205, guid: e6acd7d067a831d48ba83db0b81392b8, type: 3}
   maxCoinsToGenerate: 5
@@ -1139,8 +1140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1392391716}
-  - component: {fileID: 1392391715}
-  - component: {fileID: 1392391714}
+  - component: {fileID: 1392391718}
   - component: {fileID: 1392391717}
   m_Layer: 0
   m_Name: Player
@@ -1149,36 +1149,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!54 &1392391714
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392391713}
-  serializedVersion: 2
-  m_Mass: 0.1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!136 &1392391715
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392391713}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!4 &1392391716
 Transform:
   m_ObjectHideFlags: 0
@@ -1187,7 +1157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392391713}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2, y: -5.87, z: 4.58}
+  m_LocalPosition: {x: -5.2, y: -6.51, z: 4.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1210,16 +1180,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideSpeed: 20
   slideDistance: 5
-  jumpForce: 100
+  jumpForce: 1
+  jumpTime: 0.5
+  jumpHeight: 10
   jumpMultiplier: 14.8
+  fallMultiplier: 1.5
   groundCheck: {fileID: 1493826528}
   groundCheckRadius: 0.3
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  moveSpeed: 20
-  gravity: 100
+  moveSpeed: 1
+  gravity: 20
   playerAnimator: {fileID: 1154059457}
+--- !u!143 &1392391718
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392391713}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1448927678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,7 +1604,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724841885}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2, y: 0.23000002, z: -7.42}
+  m_LocalPosition: {x: -5.2, y: -0.41000032, z: -7.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
