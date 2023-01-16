@@ -6,31 +6,36 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]private float slideSpeed = 50f;
     [SerializeField]private float slideDistance = 5f;
-    //[SerializeField]private float jumpForce = 20f;
     [Min(0f)]
     [SerializeField]private float jumpTime = 0.5f;
     [Min(0f)]
     [SerializeField]private float jumpHeight = 10f;
 
-    //[Range(1f,100f)]
-    //[SerializeField]private float jumpMultiplier = 2.0f;
     [Min(0f)]
     [SerializeField]private float fallMultiplier = 1.5f;
 
+    [Range(0.1f,1.0f)]
+    [SerializeField]private float fallCoolDownTime = 0.5f;
     [SerializeField]private Transform groundCheck;
     [SerializeField]private float groundCheckRadius = 0.3f;
 
     [SerializeField]private LayerMask groundMask;
     [SerializeField]private float moveSpeed = 10f;
-    //[SerializeField]private float gravity = 9.8f;
 
     [SerializeField]private Animator playerAnimator;
+
     private bool _isSliding = false;
     private Rigidbody _playerRB;
     private float _gravity;
     private float _velocityY;
 
     private float _initialJumpVelocity;
+
+    private Vector3 _movePosition;
+    
+    private float _currentPositionX;
+
+    private float _currentFallDownTime = 0.0f;
     private void Awake() {
         _playerRB = GetComponent<Rigidbody>();
          _velocityY = 0f;
@@ -39,11 +44,16 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _playerRB.isKinematic = true;
+        _currentPositionX = _playerRB.transform.position.x;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(PauseController.Instance.IsGamePaused)
+        {
+            return;
+        }
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         bool jumpInput = Input.GetKeyDown(KeyCode.Space);
         if(jumpInput == true)
@@ -64,6 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() 
     {
+        if(PauseController.Instance.IsGamePaused)
+        {
+            return;
+        }
         HandleMovement();
     }
 
@@ -71,20 +85,20 @@ public class PlayerMovement : MonoBehaviour
     {
         _isSliding = true;
 
-        Vector3 initialPosition = _playerRB.transform.position;
-        Vector3 finalPosition = _playerRB.transform.position + Vector3.right * input * slideDistance;
+        float initialPositionX = _playerRB.transform.position.x;
+        float finalPositionX = _playerRB.transform.position.x + input * slideDistance;
 
-        Vector3 currentPosition = initialPosition;
-        float distance = Vector3.Distance(currentPosition,initialPosition);
+        _currentPositionX = initialPositionX;
+        float distance = 0;
 
         while(distance < slideDistance)
         {
-            currentPosition = Vector3.Lerp(initialPosition,finalPosition,distance);
-            _playerRB.MovePosition(currentPosition);
-            Debug.Log("Slide distance covered : " + distance);
+            _currentPositionX = Mathf.Lerp(initialPositionX,finalPositionX,distance);
+            //Debug.Log("Slide distance covered : " + distance);
             distance += slideSpeed * Time.deltaTime;
             yield return null;
-        } 
+        }
+        _currentPositionX = finalPositionX; 
         _isSliding = false;
     }
 
@@ -98,9 +112,9 @@ public class PlayerMovement : MonoBehaviour
     private void HandleMovement()
     {
         CalculateParameters();
-        
-        Vector3 nextPosition = _playerRB.transform.position + (Vector3.forward * moveSpeed + Vector3.up * _velocityY) * Time.fixedDeltaTime;
-        _playerRB.MovePosition(nextPosition);
+        _movePosition = _playerRB.transform.position + (Vector3.forward * moveSpeed + Vector3.up * _velocityY) * Time.fixedDeltaTime;
+        _movePosition.x = _currentPositionX;
+        _playerRB.MovePosition(_movePosition);
         HandleGravity();
     }
 
@@ -111,6 +125,16 @@ public class PlayerMovement : MonoBehaviour
 
         if(!IsGrounded())
         {
+            _currentFallDownTime += Time.deltaTime;
+            if(_currentFallDownTime < fallCoolDownTime)
+            {
+                return;
+            }
+            else
+            {
+                _currentFallDownTime = 0f;
+            }
+            Debug.Log("Player is not grounded");
             float currentVelocityY = _velocityY;
             float currentGravity = _gravity;
             
@@ -140,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
         }      
     }
 
+    
     private bool IsGrounded()
     {
         return Physics.CheckSphere(groundCheck.position,groundCheckRadius,groundMask.value);

@@ -21763,6 +21763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6683002513540440960}
   - component: {fileID: 6683002513540440973}
+  - component: {fileID: 2833540916951576329}
   m_Layer: 3
   m_Name: GroundPrefab
   m_TagString: Untagged
@@ -21803,6 +21804,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 15, y: 1, z: 50}
   m_Center: {x: 0, y: -0.6, z: 25}
+--- !u!114 &2833540916951576329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683002513540440972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822c7e585f13012419cd8c3c5272c907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endPoint: {fileID: 6683002512870606909}
 --- !u!1 &6683002513578186747
 GameObject:
   m_ObjectHideFlags: 0
