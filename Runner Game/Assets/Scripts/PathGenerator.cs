@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class PathGenerator : MonoBehaviour
 {
-    [SerializeField]private CinemachineBrain playerCamera;
+    [SerializeField]private CinemachineVirtualCamera playerCamera;
     [SerializeField]private PlayerMovement player;
 
     [Min(0)]
@@ -113,7 +113,6 @@ public class PathGenerator : MonoBehaviour
     void SetToOrigin()
     {
         playerCamera.enabled = false;
-        playerCamera.transform.position -= Vector3.forward * backwardDistance;
         player.transform.position -= Vector3.forward * backwardDistance;
         playerCamera.enabled = true;
         foreach(Floor floor in _floors)
