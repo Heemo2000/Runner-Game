@@ -83,7 +83,7 @@ public class PathGenerator : MonoBehaviour
         float offset = player.transform.position.z - firstFloorEndPoint.position.z;
         if(offset >= spawnDistance)
         {
-            
+            Debug.Log("Generating path");
             for(int i = 1; i <= floorsGenerationCount; i++)
             {
                 Floor lastFloor = _floors[_floors.Count - 1];

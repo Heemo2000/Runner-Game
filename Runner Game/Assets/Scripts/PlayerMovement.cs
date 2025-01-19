@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         bool jumpInput = Input.GetKeyDown(KeyCode.Space);
         if(jumpInput == true)
         {
-            Debug.Log("Jump Pressed");
+            //Debug.Log("Jump Pressed");
             Jump();
         }
         bool isGrounded = Physics.CheckSphere(groundCheck.position,groundCheckRadius,groundMask.value);
@@ -134,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _currentFallDownTime = 0f;
             }
-            Debug.Log("Player is not grounded");
+            //Debug.Log("Player is not grounded");
             float currentVelocityY = _velocityY;
             float currentGravity = _gravity;
             

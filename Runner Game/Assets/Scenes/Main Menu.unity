@@ -826,6 +826,7 @@ MonoBehaviour:
   - {fileID: 1778377148}
   - {fileID: 1843277624}
   - {fileID: 1825851908}
+  openStartingUI: 1
   startingUI: {fileID: 1778377148}
 --- !u!4 &2011335518
 Transform:
@@ -953,6 +954,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 775824668635328378, guid: cb3cc3be36bdaeb4693d5dc7277a4a96, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 775824668635328378, guid: cb3cc3be36bdaeb4693d5dc7277a4a96, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb3cc3be36bdaeb4693d5dc7277a4a96, type: 3}
 --- !u!1001 &1221605009869494356
@@ -1050,6 +1059,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1221605010216817239, guid: df1ec56b4494c4f4d9ed36a600ae01c0, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1221605010216817239, guid: df1ec56b4494c4f4d9ed36a600ae01c0, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df1ec56b4494c4f4d9ed36a600ae01c0, type: 3}
 --- !u!1001 &5624368368745801310
@@ -1143,6 +1160,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5624368367268169701, guid: c5cc4a714a960ab4fa8d04bc9500abc0, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624368367268169701, guid: c5cc4a714a960ab4fa8d04bc9500abc0, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5624368367268169703, guid: c5cc4a714a960ab4fa8d04bc9500abc0, type: 3}
       propertyPath: m_Name
       value: Main Menu Canvas
@@ -1172,6 +1197,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1684686074}
     m_Modifications:
+    - target: {fileID: 6000619316555968768, guid: 98ce4f31cde5c364eb68ebca999bee14, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6000619316555968768, guid: 98ce4f31cde5c364eb68ebca999bee14, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6000619316555968770, guid: 98ce4f31cde5c364eb68ebca999bee14, type: 3}
       propertyPath: m_Pivot.x
       value: 0
